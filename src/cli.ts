@@ -6,6 +6,7 @@ import { runInit } from './commands/init.js';
 import { runOn } from './commands/on.js';
 import { runOff } from './commands/off.js';
 import { runReceiptLatest, runReceiptList } from './commands/receipt.js';
+import { runVerify } from './commands/verify.js';
 
 const program = new Command();
 
@@ -69,8 +70,8 @@ receipt
 program
   .command('verify')
   .description('Force a challenge pass against the latest receipt')
-  .action(() => {
-    console.log('[traceguard] verify: not yet implemented (Phase 7)');
+  .action(async () => {
+    await runVerify();
   });
 
 program

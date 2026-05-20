@@ -1,4 +1,5 @@
 import { enableClaude } from '../integrations/claude.js';
+import { enableCodex } from '../integrations/codex.js';
 
 export function runOn(agent: string): void {
   switch (agent) {
@@ -7,7 +8,7 @@ export function runOn(agent: string): void {
       enableClaude();
       return;
     case 'codex':
-      console.log('[traceguard] on codex: not yet implemented (Phase 8)');
+      enableCodex();
       return;
     default:
       console.error(`Unknown agent: ${agent}. Expected 'claude' or 'codex'.`);

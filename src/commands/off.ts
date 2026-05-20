@@ -1,4 +1,5 @@
 import { disableClaude } from '../integrations/claude.js';
+import { disableCodex } from '../integrations/codex.js';
 
 export function runOff(agent: string): void {
   switch (agent) {
@@ -7,7 +8,7 @@ export function runOff(agent: string): void {
       disableClaude();
       return;
     case 'codex':
-      console.log('[traceguard] off codex: not yet implemented (Phase 8)');
+      disableCodex();
       return;
     default:
       console.error(`Unknown agent: ${agent}. Expected 'claude' or 'codex'.`);

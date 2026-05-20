@@ -765,23 +765,3 @@ TRACEguard avoids heavy-handed restrictions by using three principles:
 3. **Verification only when triggered.** Most tasks receive a receipt; risky tasks receive challenge passes.
 
 This makes TRACEguard practical for real developers because it does not turn every model response into a compliance checklist.
-
----
-
-# 8. Judge-Facing Novelty Claim
-
-TRACEguard is not just another “make the model explain itself” prompt. It is a portable runtime protocol for AI coding agents that combines:
-
-```text
-Tool-boundary enforcement
-Evidence-linked final claims
-Uncertainty and abstention labels
-Triggered verification
-Auditable session receipts
-```
-
-The key contribution is the integration of these interventions into a terminal workflow for Claude Code and Codex CLI with minimal token cost and minimal loss of autonomy.
-
-A concise project claim:
-
-> TRACEguard is a lightweight terminal protocol for trustworthy AI coding agents. It makes Claude Code and Codex sessions more transparent by logging what the agent changed, what evidence supports its claims, when it was uncertain, and when risky actions required approval.

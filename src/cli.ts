@@ -3,6 +3,8 @@ import { Command } from 'commander';
 import { resolvePaths } from './core/paths.js';
 import { loadConfig } from './core/config.js';
 import { runInit } from './commands/init.js';
+import { runOn } from './commands/on.js';
+import { runOff } from './commands/off.js';
 
 const program = new Command();
 
@@ -25,14 +27,14 @@ program
   .command('on <agent>')
   .description('Enable TRACEguard for an agent (claude | codex)')
   .action((agent: string) => {
-    console.log(`[traceguard] on ${agent}: not yet implemented (Phase 3 / 8)`);
+    runOn(agent);
   });
 
 program
   .command('off <agent>')
   .description('Disable TRACEguard for an agent (claude | codex)')
   .action((agent: string) => {
-    console.log(`[traceguard] off ${agent}: not yet implemented (Phase 3 / 8)`);
+    runOff(agent);
   });
 
 program

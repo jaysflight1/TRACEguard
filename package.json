@@ -36,6 +36,7 @@
     "node": ">=20"
   },
   "dependencies": {
+    "cli-table3": "^0.6.5",
     "commander": "^12.1.0",
     "execa": "^9.5.1",
     "fast-glob": "^3.3.2",

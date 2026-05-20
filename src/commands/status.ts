@@ -1,13 +1,10 @@
 import { existsSync } from 'node:fs';
-import pc from 'picocolors';
+import Table from 'cli-table3';
 import { loadConfig } from '../core/config.js';
 import { hasBlock } from '../core/markers.js';
 import { resolvePaths } from '../core/paths.js';
 import { latestReceiptPath } from '../core/receipt.js';
-
-function badge(active: boolean): string {
-  return active ? pc.green('active') : pc.dim('inactive');
-}
+import { dim, heading, tag } from '../core/style.js';
 
 export function runStatus(): void {
   const paths = resolvePaths();
@@ -22,18 +19,49 @@ export function runStatus(): void {
   const claudeActive = config.agents.claude.enabled && claudeBlock;
   const codexActive = config.agents.codex.enabled && agentsBlock;
 
-  console.log(pc.bold('TRACEguard status'));
-  console.log(`  Repo root:        ${paths.repoRoot}`);
-  console.log(`  Claude Code:      ${badge(claudeActive)}`);
-  console.log(`    CLAUDE.md block:   ${claudeBlock ? 'yes' : 'no'}`);
-  console.log(`    settings.json:     ${settingsExists ? paths.claudeSettings : '(none)'}`);
-  console.log(`    hook shims:        ${hooksInstalled ? paths.hooksDir : '(none)'}`);
-  console.log(`  Codex:            ${badge(codexActive)}`);
-  console.log(`    AGENTS.md block:   ${agentsBlock ? 'yes' : 'no'}`);
-  console.log(`    sandbox_mode:      ${config.agents.codex.sandbox_mode}`);
-  console.log(`    approval_policy:   ${config.agents.codex.approval_policy}`);
-  console.log(`  Policy:           ${config.policy}`);
-  console.log(`  Challenge mode:   ${config.challenge.default_mode}`);
-  console.log(`  Reviewer mode:    ${config.challenge.reviewer_mode ? 'on' : 'off'}`);
-  console.log(`  Last receipt:     ${latest ?? '(none yet)'}`);
+  console.log(heading('TRACEguard status'));
+  console.log(dim(`  ${paths.repoRoot}`));
+  console.log();
+
+  const overview = new Table({
+    head: ['Agent', 'State', 'Details'],
+    style: { head: ['cyan'], border: ['gray'] },
+    colWidths: [12, 14, 56],
+    wordWrap: true,
+  });
+  overview.push(
+    [
+      'Claude Code',
+      claudeActive ? tag.active() : tag.inactive(),
+      [
+        `CLAUDE.md block: ${claudeBlock ? 'yes' : 'no'}`,
+        `settings.json:   ${settingsExists ? paths.claudeSettings : '(none)'}`,
+        `hook shims:      ${hooksInstalled ? paths.hooksDir : '(none)'}`,
+      ].join('\n'),
+    ],
+    [
+      'Codex',
+      codexActive ? tag.active() : tag.inactive(),
+      [
+        `AGENTS.md block:    ${agentsBlock ? 'yes' : 'no'}`,
+        `sandbox_mode:       ${config.agents.codex.sandbox_mode}`,
+        `approval_policy:    ${config.agents.codex.approval_policy}`,
+      ].join('\n'),
+    ],
+  );
+  console.log(overview.toString());
+
+  console.log();
+  const policy = new Table({
+    head: ['Setting', 'Value'],
+    style: { head: ['cyan'], border: ['gray'] },
+    colWidths: [22, 50],
+  });
+  policy.push(
+    ['Policy', config.policy],
+    ['Challenge mode', config.challenge.default_mode],
+    ['Reviewer mode', config.challenge.reviewer_mode ? 'on' : 'off'],
+    ['Last receipt', latest ?? dim('(none yet)')],
+  );
+  console.log(policy.toString());
 }

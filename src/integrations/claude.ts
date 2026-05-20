@@ -3,6 +3,7 @@ import { dirname, join } from 'node:path';
 import { loadConfig, saveConfig } from '../core/config.js';
 import { hasBlock, insertBlock, removeBlock } from '../core/markers.js';
 import { resolvePaths, type TraceguardPaths } from '../core/paths.js';
+import { dim, heading, tag } from '../core/style.js';
 import { CLAUDE_BLOCK, CLAUDE_HOOK_SETTINGS } from '../templates/index.js';
 
 const HOOK_SCRIPTS = ['pre-tool-use', 'post-tool-use', 'stop'] as const;
@@ -138,12 +139,14 @@ export function enableClaude(): void {
     writeSettings(paths.claudeSettings, mergeHookEntries(settings));
   }
 
-  console.log('TRACEguard enabled for Claude Code.');
-  console.log(`  protocol block: ${paths.claudeMd}`);
+  console.log(heading('TRACEguard enabled for Claude Code.'));
+  console.log('  ' + tag.ok(`protocol block: ${paths.claudeMd}`));
   if (config.agents.claude.hooks_enabled) {
-    console.log(`  hook settings:  ${paths.claudeSettings}`);
-    console.log(`  hook shims:     ${paths.hooksDir}`);
+    console.log('  ' + tag.ok(`hook settings:  ${paths.claudeSettings}`));
+    console.log('  ' + tag.ok(`hook shims:     ${paths.hooksDir}`));
   }
+  console.log();
+  console.log(dim('Run `traceguard status` to confirm.'));
 }
 
 export function disableClaude(): void {
@@ -159,9 +162,9 @@ export function disableClaude(): void {
     writeSettings(paths.claudeSettings, removeHookEntries(settings));
   }
 
-  console.log('TRACEguard disabled for Claude Code.');
-  console.log(`  protocol block removed from ${paths.claudeMd}`);
-  console.log(`  hook entries removed from ${paths.claudeSettings}`);
+  console.log(heading('TRACEguard disabled for Claude Code.'));
+  console.log('  ' + tag.ok(`protocol block removed from ${paths.claudeMd}`));
+  console.log('  ' + tag.ok(`hook entries removed from ${paths.claudeSettings}`));
 }
 
 export function isClaudeEnabled(): boolean {

@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { loadConfig, saveConfig } from '../core/config.js';
 import { hasBlock, insertBlock, removeBlock } from '../core/markers.js';
 import { resolvePaths } from '../core/paths.js';
+import { dim, heading, tag } from '../core/style.js';
 import { AGENTS_BLOCK } from '../templates/index.js';
 
 const CODEX_TG_START = '# TRACEguard:start';
@@ -55,8 +56,8 @@ export function enableCodex(): void {
   saveConfig(paths.configFile, config);
 
   insertBlock(paths.agentsMd, 'protocol', AGENTS_BLOCK);
-  console.log('TRACEguard enabled for Codex CLI.');
-  console.log(`  protocol block: ${paths.agentsMd}`);
+  console.log(heading('TRACEguard enabled for Codex CLI.'));
+  console.log('  ' + tag.ok(`protocol block: ${paths.agentsMd}`));
 
   const codexConfig = codexConfigPath();
   if (codexConfig) {
@@ -64,16 +65,16 @@ export function enableCodex(): void {
     const updated = injectIntoToml(current, tgBlockBody(config));
     if (updated !== current) {
       writeFileSync(codexConfig, updated, 'utf8');
-      console.log(`  Codex config updated: ${codexConfig}`);
+      console.log('  ' + tag.ok(`Codex config updated: ${codexConfig}`));
     } else {
-      console.log(`  Codex config already up to date: ${codexConfig}`);
+      console.log('  ' + tag.exists(`Codex config already up to date: ${codexConfig}`));
     }
   } else {
-    console.log('  Codex config not found at ~/.codex/config.toml — printing recommended settings:');
-    console.log('');
-    console.log(tgBlockBody(config));
-    console.log('');
-    console.log('  Add the block above to your Codex config when ready.');
+    console.log('  ' + tag.warn(`Codex config not found at ~/.codex/config.toml — recommended settings:`));
+    console.log();
+    console.log(dim(tgBlockBody(config).split('\n').map((l) => '    ' + l).join('\n')));
+    console.log();
+    console.log(dim('  Add the block above to your Codex config when ready.'));
   }
 }
 
@@ -84,8 +85,8 @@ export function disableCodex(): void {
   saveConfig(paths.configFile, config);
 
   removeBlock(paths.agentsMd, 'protocol');
-  console.log('TRACEguard disabled for Codex CLI.');
-  console.log(`  protocol block removed from ${paths.agentsMd}`);
+  console.log(heading('TRACEguard disabled for Codex CLI.'));
+  console.log('  ' + tag.ok(`protocol block removed from ${paths.agentsMd}`));
 
   const codexConfig = codexConfigPath();
   if (codexConfig) {
@@ -93,7 +94,7 @@ export function disableCodex(): void {
     const updated = stripFromToml(current);
     if (updated !== current) {
       writeFileSync(codexConfig, updated, 'utf8');
-      console.log(`  Codex config cleaned: ${codexConfig}`);
+      console.log('  ' + tag.ok(`Codex config cleaned: ${codexConfig}`));
     }
   }
 }

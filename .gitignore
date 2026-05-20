@@ -4,3 +4,13 @@ dist/
 *.log
 coverage/
 .vitest-cache/
+
+# TRACEguard runtime artifacts produced by dogfooding / smoke tests in this
+# repo. Downstream projects that adopt TRACEguard should commit their own
+# .traceguard/config.json (TRACEguard's `init` writes a .traceguard/.gitignore
+# that only excludes per-session logs). These ignores apply to the source repo
+# only.
+.traceguard/
+.claude/
+CLAUDE.md
+AGENTS.md

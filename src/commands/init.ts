@@ -68,5 +68,14 @@ export function runInit(opts: InitOptions = {}): void {
     for (const p of ensured) console.log(pc.dim(`    · ${rel(p)}`));
   }
   console.log();
-  console.log('Next: `traceguard on claude` or `traceguard on codex`.');
+  console.log(pc.bold('Next steps:'));
+  console.log('  1. Activate the agent you use:');
+  console.log('       npx traceguard on claude     (or:  npx tg on claude)');
+  console.log('       npx traceguard on codex      (or:  npx tg on codex)');
+  console.log('  2. Confirm activation:');
+  console.log('       npx traceguard status        (or:  npx tg status)');
+  console.log();
+  console.log(pc.dim('If TRACEguard is installed globally (`npm install -g traceguard`),'));
+  console.log(pc.dim('you can drop the `npx` prefix and just run `traceguard` or `tg`.'));
+  console.log(pc.dim('See `npx traceguard --help` or COMMANDS.md for the full reference.'));
 }

@@ -2,6 +2,8 @@
 
 Every command runs against the **current working directory's repo root** (walks up to the nearest `.git` or `package.json`). All file edits TRACEguard makes are wrapped in HTML-comment sentinels so they can be reversed cleanly.
 
+> Every command shown below as `traceguard <...>` also accepts the shorter alias `tg <...>`. So `traceguard init` and `tg init` are identical. The long name is used throughout this reference for clarity; pick whichever you prefer day-to-day.
+
 ---
 
 ## `traceguard init`

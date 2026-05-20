@@ -24,6 +24,10 @@ npx traceguard on codex    # inject AGENTS.md block + recommend codex sandbox
 npx traceguard status      # show current activation state
 ```
 
+> Every command also responds to the shorter `tg` alias —
+> `npx tg init`, `npx tg on claude`, `npx tg status`, etc.
+> If you `npm install -g traceguard`, drop the `npx` prefix entirely.
+
 After an agent session ends, inspect the receipt:
 
 ```bash

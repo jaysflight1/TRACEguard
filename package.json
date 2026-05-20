@@ -4,7 +4,8 @@
   "description": "Open-source trust layer for AI coding agents. Adds tool-boundary enforcement, evidence-linked claims, uncertainty labels, triggered verification, and auditable receipts to Claude Code and Codex CLI.",
   "type": "module",
   "bin": {
-    "traceguard": "bin/traceguard.js"
+    "traceguard": "bin/traceguard.js",
+    "tg": "bin/traceguard.js"
   },
   "files": [
     "bin",

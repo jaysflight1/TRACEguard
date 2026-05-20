@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import { resolvePaths } from './core/paths.js';
 import { loadConfig } from './core/config.js';
+import { runInit } from './commands/init.js';
 
 const program = new Command();
 
@@ -15,8 +16,9 @@ program
 program
   .command('init')
   .description('Scaffold .traceguard/ and instruction files in the current repo')
-  .action(() => {
-    console.log('[traceguard] init: not yet implemented (Phase 2)');
+  .option('--force', 'Re-write TRACEguard config and blocks even if present')
+  .action((opts: { force?: boolean }) => {
+    runInit({ force: opts.force });
   });
 
 program

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
+import { resolvePaths } from './core/paths.js';
+import { loadConfig } from './core/config.js';
 
 const program = new Command();
 
@@ -35,7 +37,14 @@ program
   .command('status')
   .description('Show TRACEguard activation and policy state')
   .action(() => {
-    console.log('[traceguard] status: not yet implemented (Phase 9)');
+    const paths = resolvePaths();
+    const config = loadConfig(paths.configFile);
+    console.log('TRACEguard status');
+    console.log(`Repo root:     ${paths.repoRoot}`);
+    console.log(`Claude Code:   ${config.agents.claude.enabled ? 'active' : 'inactive'}`);
+    console.log(`Codex:         ${config.agents.codex.enabled ? 'active' : 'inactive'}`);
+    console.log(`Policy:        ${config.policy}`);
+    console.log(`Challenge:     ${config.challenge.default_mode}`);
   });
 
 const receipt = program.command('receipt').description('Inspect session receipts');

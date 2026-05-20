@@ -416,7 +416,7 @@ export async function buildAndWriteReceipt(
 export function listReceipts(receiptsDir: string): { path: string; mtimeMs: number }[] {
   if (!existsSync(receiptsDir)) return [];
   return readdirSync(receiptsDir)
-    .filter((f) => f.endsWith('.md'))
+    .filter((f) => f.endsWith('.md') && f !== 'CHALLENGE.md')
     .map((f) => {
       const full = join(receiptsDir, f);
       return { path: full, mtimeMs: statSync(full).mtimeMs };

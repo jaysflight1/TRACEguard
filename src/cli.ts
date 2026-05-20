@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { resolvePaths } from './core/paths.js';
-import { loadConfig } from './core/config.js';
 import { runInit } from './commands/init.js';
 import { runOn } from './commands/on.js';
 import { runOff } from './commands/off.js';
 import { runReceiptLatest, runReceiptList } from './commands/receipt.js';
+import { runStatus } from './commands/status.js';
+import { runUninstall } from './commands/uninstall.js';
 import { runVerify } from './commands/verify.js';
 
 const program = new Command();
@@ -43,14 +43,7 @@ program
   .command('status')
   .description('Show TRACEguard activation and policy state')
   .action(() => {
-    const paths = resolvePaths();
-    const config = loadConfig(paths.configFile);
-    console.log('TRACEguard status');
-    console.log(`Repo root:     ${paths.repoRoot}`);
-    console.log(`Claude Code:   ${config.agents.claude.enabled ? 'active' : 'inactive'}`);
-    console.log(`Codex:         ${config.agents.codex.enabled ? 'active' : 'inactive'}`);
-    console.log(`Policy:        ${config.policy}`);
-    console.log(`Challenge:     ${config.challenge.default_mode}`);
+    runStatus();
   });
 
 const receipt = program.command('receipt').description('Inspect session receipts');
@@ -77,8 +70,9 @@ program
 program
   .command('uninstall')
   .description('Remove TRACEguard from this repo')
-  .action(() => {
-    console.log('[traceguard] uninstall: not yet implemented (Phase 9)');
+  .option('--purge', 'Also delete .traceguard/ (config, logs, receipts)')
+  .action((opts: { purge?: boolean }) => {
+    runUninstall({ purge: opts.purge });
   });
 
 program.parseAsync(process.argv).catch((err) => {

@@ -5,6 +5,7 @@ import { loadConfig } from './core/config.js';
 import { runInit } from './commands/init.js';
 import { runOn } from './commands/on.js';
 import { runOff } from './commands/off.js';
+import { runReceiptLatest, runReceiptList } from './commands/receipt.js';
 
 const program = new Command();
 
@@ -56,13 +57,13 @@ receipt
   .command('latest')
   .description('Print the most recent receipt')
   .action(() => {
-    console.log('[traceguard] receipt latest: not yet implemented (Phase 6)');
+    runReceiptLatest();
   });
 receipt
   .command('list')
   .description('List all receipts')
   .action(() => {
-    console.log('[traceguard] receipt list: not yet implemented (Phase 6)');
+    runReceiptList();
   });
 
 program

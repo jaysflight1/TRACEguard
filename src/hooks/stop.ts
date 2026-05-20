@@ -18,10 +18,10 @@ async function main(): Promise<void> {
         paths: typeof ctx.paths,
         sessionId: string,
         config: typeof ctx.config,
-      ) => { markdownPath: string };
+      ) => Promise<{ markdownPath: string }>;
     };
     if (mod.buildAndWriteReceipt) {
-      const result = mod.buildAndWriteReceipt(ctx.paths, ctx.sessionId, ctx.config);
+      const result = await mod.buildAndWriteReceipt(ctx.paths, ctx.sessionId, ctx.config);
       process.stderr.write(`[traceguard] receipt: ${result.markdownPath}\n`);
     }
   } catch {

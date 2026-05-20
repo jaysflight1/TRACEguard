@@ -24,6 +24,21 @@ function eventToAction(event: { tool_name?: string; tool_input?: Record<string, 
 
 function main(): void {
   const ctx = buildContext();
+
+  // Global pause: hooks short-circuit to allow but still leave a breadcrumb
+  // so the receipt records what happened during the paused window.
+  if (!ctx.config.enabled) {
+    ctx.logger.log('pre_tool_use', {
+      tool: ctx.event.tool_name ?? null,
+      paused: true,
+      target:
+        (typeof ctx.event.tool_input?.['command'] === 'string' && ctx.event.tool_input['command']) ||
+        (typeof ctx.event.tool_input?.['file_path'] === 'string' && ctx.event.tool_input['file_path']) ||
+        null,
+    });
+    silentAllow();
+  }
+
   const action = eventToAction(ctx.event);
   if (!action) {
     ctx.logger.log('pre_tool_use', { tool: ctx.event.tool_name ?? null, skipped: 'unrecognized tool' });

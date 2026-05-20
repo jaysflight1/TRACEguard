@@ -21,6 +21,9 @@ export function runStatus(): void {
 
   console.log(heading('TRACEguard status'));
   console.log(dim(`  ${paths.repoRoot}`));
+  console.log(
+    `  Global enforcement: ${config.enabled ? tag.active('on') : tag.inactive('paused')}`,
+  );
   console.log();
 
   const overview = new Table({

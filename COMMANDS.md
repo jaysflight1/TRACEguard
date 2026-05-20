@@ -28,6 +28,35 @@ Run this **once per project**. After it succeeds, run `on claude` and/or `on cod
 
 ---
 
+## `traceguard on` / `traceguard off` (no arg)
+
+Global enforcement toggle. Pauses or resumes TRACEguard **without** removing the protocol blocks from `CLAUDE.md` / `AGENTS.md` or removing hook entries from `.claude/settings.json`. Only enforcement is suspended.
+
+**What it does:**
+
+- Flips the top-level `enabled` boolean in `.traceguard/config.json` (default `true`).
+- When `false`, the `pre-tool-use` hook logs a `paused: true` event and silently allows every action — no classification, no `ask`, no `block`. `post-tool-use` and `stop` hooks continue to record so receipts still show what happened during the paused window.
+- Protocol blocks, hook shims, and settings entries are not touched.
+
+**Usage:**
+
+```bash
+traceguard off    # pause enforcement (no agent arg)
+traceguard on     # resume enforcement
+```
+
+**Versus per-agent and `uninstall`:**
+
+| Want | Command | Reversible by |
+|---|---|---|
+| Briefly stop enforcement, keep everything | `traceguard off` | `traceguard on` |
+| Remove just the Claude integration | `traceguard off claude` | `traceguard on claude` |
+| Remove just the Codex integration | `traceguard off codex` | `traceguard on codex` |
+| Remove both integrations | `traceguard uninstall` | re-run `on claude` / `on codex` |
+| Remove everything including `.traceguard/` | `traceguard uninstall --purge` | re-run `init` from scratch |
+
+---
+
 ## `traceguard on claude`
 
 Activates TRACEguard for Claude Code in the current repo.

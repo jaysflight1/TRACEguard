@@ -49,6 +49,8 @@ npx traceguard uninstall --purge  # also delete .traceguard/
 | Command | What it does |
 |---|---|
 | `traceguard init` | Scaffolds `.traceguard/{logs,receipts,policies,hooks}` and inserts the protocol block into `CLAUDE.md` and `AGENTS.md`. |
+| `traceguard on` | **Global resume.** No arg — flips `enabled: true` in config so hooks classify actions again. |
+| `traceguard off` | **Global pause.** No arg — flips `enabled: false`; hooks short-circuit to allow every action. Protocol blocks and hook installation stay in place. |
 | `traceguard on claude` | Enables Claude Code integration: installs hook shims and merges TRACEguard-tagged entries into `.claude/settings.json`. |
 | `traceguard on codex` | Enables Codex CLI integration: inserts the `AGENTS.md` block and applies sandbox/approval settings to `~/.codex/config.toml` (or recommends them). |
 | `traceguard off claude` | Reverses `on claude` — removes the `CLAUDE.md` block and TRACEguard's `.claude/settings.json` entries while preserving user-added hooks. |

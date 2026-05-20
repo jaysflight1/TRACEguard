@@ -27,16 +27,22 @@ program
   });
 
 program
-  .command('on <agent>')
-  .description('Enable TRACEguard for an agent (claude | codex)')
-  .action((agent: string) => {
+  .command('on [agent]')
+  .description(
+    'No arg: resume TRACEguard enforcement globally. ' +
+    'With agent (claude|codex): install integration in this repo.',
+  )
+  .action((agent?: string) => {
     runOn(agent);
   });
 
 program
-  .command('off <agent>')
-  .description('Disable TRACEguard for an agent (claude | codex)')
-  .action((agent: string) => {
+  .command('off [agent]')
+  .description(
+    'No arg: pause TRACEguard enforcement globally (hooks allow everything; protocol blocks stay). ' +
+    'With agent (claude|codex): remove that integration from this repo.',
+  )
+  .action((agent?: string) => {
     runOff(agent);
   });
 

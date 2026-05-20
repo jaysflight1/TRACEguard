@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 export const ConfigSchema = z.object({
   version: z.string().default('0.1.0'),
+  enabled: z.boolean().default(true),
   policy: z.enum(['default', 'strict', 'custom']).default('default'),
   agents: z
     .object({

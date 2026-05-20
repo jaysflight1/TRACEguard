@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
+import { PACKAGE_VERSION } from './core/version.js';
 import { runInit } from './commands/init.js';
 import { runOn } from './commands/on.js';
 import { runOff } from './commands/off.js';
@@ -7,6 +8,7 @@ import { runReceiptLatest, runReceiptList } from './commands/receipt.js';
 import { runStatus } from './commands/status.js';
 import { runSummary } from './commands/summary.js';
 import { runUninstall } from './commands/uninstall.js';
+import { runUpdate } from './commands/update.js';
 import { runVerify } from './commands/verify.js';
 
 const program = new Command();
@@ -16,7 +18,7 @@ program
   .description(
     'Lightweight transparency layer for AI coding agents (Claude Code, Codex CLI).',
   )
-  .version('0.1.0');
+  .version(PACKAGE_VERSION);
 
 program
   .command('init')
@@ -94,6 +96,16 @@ program
   .description('Force a challenge pass against the latest receipt')
   .action(async () => {
     await runVerify();
+  });
+
+program
+  .command('update')
+  .description('Update the installed TRACEguard package to the latest version')
+  .option('--source <where>', 'Install source: `npm` (default) or `github`', 'npm')
+  .option('--check', 'Print what would happen without actually running npm install')
+  .action(async (opts: { source?: string; check?: boolean }) => {
+    const source = opts.source === 'github' ? 'github' : 'npm';
+    await runUpdate({ source, check: opts.check });
   });
 
 program

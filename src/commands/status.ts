@@ -5,6 +5,7 @@ import { hasBlock } from '../core/markers.js';
 import { resolvePaths } from '../core/paths.js';
 import { latestReceiptPath } from '../core/receipt.js';
 import { dim, heading, tag } from '../core/style.js';
+import { compareVersions } from '../core/version.js';
 
 export function runStatus(): void {
   const paths = resolvePaths();
@@ -19,11 +20,25 @@ export function runStatus(): void {
   const claudeActive = config.agents.claude.enabled && claudeBlock;
   const codexActive = config.agents.codex.enabled && agentsBlock;
 
+  const version = compareVersions(config.version);
+
   console.log(heading('TRACEguard status'));
   console.log(dim(`  ${paths.repoRoot}`));
   console.log(
     `  Global enforcement: ${config.enabled ? tag.active('on') : tag.inactive('paused')}`,
   );
+  if (version.matches) {
+    console.log(`  Version:            ${tag.ok(`package ${version.packageVersion} (config in sync)`)}`);
+  } else {
+    console.log(
+      `  Version:            ${tag.warn(
+        `package ${version.packageVersion}, config ${version.configVersion} — refresh needed`,
+      )}`,
+    );
+    if (version.hint) {
+      console.log('                      ' + dim(version.hint));
+    }
+  }
   console.log();
 
   const overview = new Table({

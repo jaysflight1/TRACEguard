@@ -250,6 +250,29 @@ Exit code is `2` on a block verdict, `0` otherwise. Useful as a pre-merge step.
 
 ---
 
+## `traceguard update`
+
+Thin wrapper around `npm install -g traceguard@latest` that explains what's about to change and prints per-project refresh instructions afterwards.
+
+**What it does:**
+
+- Shells out to `npm install -g <source>` where source is either `traceguard@latest` (default) or `github:jaysflight1/traceguard` (with `--source github`).
+- Inherits stdio so you see npm's progress output directly.
+- On success, prints the three commands each project needs to run to refresh its per-project files (`init --force`, `on claude`, `on codex`).
+- On failure, surfaces common fixes (permissions, network).
+
+**Usage:**
+
+```bash
+traceguard update                       # update from npm registry
+traceguard update --source github       # update from GitHub head
+traceguard update --check               # dry run — show source, don't install
+```
+
+**Why it doesn't refresh projects automatically:** the per-project files (CLAUDE.md / AGENTS.md blocks, `.claude/settings.json` entries, hook shim scripts) live inside each consumer repo. `update` doesn't know where those repos are; running `traceguard init --force` and `traceguard on <agent>` inside each one is a single idempotent step that brings them in sync. `traceguard status` flags this drift automatically by comparing the package version against the version stamped in `.traceguard/config.json`.
+
+---
+
 ## `traceguard uninstall`
 
 Removes TRACEguard from the repo by calling both `off` flows.

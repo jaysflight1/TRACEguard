@@ -6,6 +6,7 @@ import { gitContext, workingDiff } from './git.js';
 import { SessionLogger, type LogEvent } from './logger.js';
 import type { TraceguardPaths } from './paths.js';
 import { isHighRiskPath } from './risk.js';
+import { PACKAGE_VERSION } from './version.js';
 
 const FilesChangedSchema = z.object({
   path: z.string(),
@@ -80,8 +81,6 @@ export const ReceiptSchema = z.object({
 
 export type Receipt = z.infer<typeof ReceiptSchema>;
 export type ReceiptWriteResult = { jsonPath: string; markdownPath: string; receipt: Receipt };
-
-const TG_VERSION = '0.1.0';
 
 function asString(v: unknown): string | null {
   return typeof v === 'string' ? v : null;
@@ -281,7 +280,7 @@ export async function buildReceipt(
   const challenge = shouldTriggerChallenge(diff, agg, config);
 
   const receipt: Receipt = {
-    traceguard_version: TG_VERSION,
+    traceguard_version: PACKAGE_VERSION,
     agent,
     session_id: sessionId,
     timestamp_start: agg.start,

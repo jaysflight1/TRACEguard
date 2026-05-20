@@ -60,6 +60,7 @@ npx traceguard uninstall --purge  # also delete .traceguard/
 | `traceguard receipt latest` | Prints the Markdown of the most recent session receipt. |
 | `traceguard receipt list` | Lists every receipt, most recent first. |
 | `traceguard verify` | Forces a challenge pass against the latest receipt (static checks, optional self-challenge, optional reviewer). Exits 2 on a block verdict. |
+| `traceguard update` | Wrapper around `npm install -g traceguard@latest`. Use `--source github` for direct GitHub installs, `--check` for a dry run. Prints the per-project refresh commands afterwards. |
 | `traceguard uninstall` | Calls both `off` flows. Pass `--purge` to also delete `.traceguard/`. |
 | `traceguard --help` / `--version` | Standard commander help and version output. Works on any subcommand too. |
 

@@ -3,6 +3,7 @@ import { defaultConfig, loadConfig, saveConfig } from '../core/config.js';
 import { insertBlock } from '../core/markers.js';
 import { resolvePaths } from '../core/paths.js';
 import { dim, heading, printBanner, tag } from '../core/style.js';
+import { PACKAGE_VERSION } from '../core/version.js';
 import { AGENTS_BLOCK, CLAUDE_BLOCK } from '../templates/index.js';
 
 export interface InitOptions {
@@ -31,10 +32,13 @@ export function runInit(opts: InitOptions = {}): void {
   }
 
   if (!existsSync(paths.configFile)) {
-    saveConfig(paths.configFile, defaultConfig());
+    const fresh = defaultConfig();
+    fresh.version = PACKAGE_VERSION;
+    saveConfig(paths.configFile, fresh);
     created.push(paths.configFile);
   } else if (opts.force) {
     const current = loadConfig(paths.configFile);
+    current.version = PACKAGE_VERSION;
     saveConfig(paths.configFile, current);
     ensured.push(paths.configFile);
   } else {

@@ -5,6 +5,7 @@ import { runOn } from './commands/on.js';
 import { runOff } from './commands/off.js';
 import { runReceiptLatest, runReceiptList } from './commands/receipt.js';
 import { runStatus } from './commands/status.js';
+import { runSummary } from './commands/summary.js';
 import { runUninstall } from './commands/uninstall.js';
 import { runVerify } from './commands/verify.js';
 
@@ -58,6 +59,28 @@ receipt
   .description('List all receipts')
   .action(() => {
     runReceiptList();
+  });
+
+const summary = program
+  .command('summary')
+  .description('Toggle whether agents must produce a TRACE summary at end-of-task');
+summary
+  .command('on [agent]')
+  .description('Enforce TRACE summaries (default — applies to both agents if [agent] omitted)')
+  .action((agent?: string) => {
+    runSummary('on', agent);
+  });
+summary
+  .command('off [agent]')
+  .description('Skip TRACE summaries unless the user explicitly asks')
+  .action((agent?: string) => {
+    runSummary('off', agent);
+  });
+summary
+  .command('status [agent]')
+  .description('Show whether TRACE summaries are currently enforced')
+  .action((agent?: string) => {
+    runSummary('status', agent);
   });
 
 program

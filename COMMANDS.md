@@ -173,6 +173,30 @@ Each line is `<ISO timestamp>  <path>`. `CHALLENGE.md` (the self-challenge promp
 
 ---
 
+## `traceguard summary`
+
+Toggles whether the agent must produce the end-of-task TRACE summary, **without rewriting `CLAUDE.md` or `AGENTS.md`**.
+
+The protocol blocks installed by `init` already reference a config flag (`agents.<agent>.enforce_trace_summary`), so flipping it propagates to the next session automatically.
+
+**Subcommands:**
+
+```bash
+traceguard summary on              # enforce summaries for both agents (default)
+traceguard summary off             # skip summaries unless user asks
+traceguard summary status          # show current toggle for both agents
+
+traceguard summary off codex       # disable only for Codex
+traceguard summary on claude       # enable only for Claude Code
+traceguard summary status claude   # show only Claude's setting
+```
+
+**What it changes:** exactly one boolean in `.traceguard/config.json` per targeted agent. No file scaffolding, no marker edits, no hook installation. The Stop hook records the active value into the session log so receipts reflect which mode was in effect.
+
+**When to use it:** turn `off` when you want a quick coding session without the structured trailing summary; turn `on` (default) for any session where audit value matters.
+
+---
+
 ## `traceguard verify`
 
 Forces a challenge pass against the latest receipt, regardless of whether it would have been triggered automatically.

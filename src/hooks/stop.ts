@@ -5,6 +5,7 @@ async function main(): Promise<void> {
   const ctx = buildContext();
   ctx.logger.log('stop', {
     session_id: ctx.sessionId,
+    enforce_trace_summary: ctx.config.agents.claude.enforce_trace_summary,
   });
 
   // Receipt generation is implemented in Phase 6; until then we just close

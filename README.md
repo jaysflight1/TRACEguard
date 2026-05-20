@@ -53,7 +53,8 @@ npx traceguard uninstall --purge  # also delete .traceguard/
 | `traceguard on codex` | Enables Codex CLI integration: inserts the `AGENTS.md` block and applies sandbox/approval settings to `~/.codex/config.toml` (or recommends them). |
 | `traceguard off claude` | Reverses `on claude` — removes the `CLAUDE.md` block and TRACEguard's `.claude/settings.json` entries while preserving user-added hooks. |
 | `traceguard off codex` | Reverses `on codex` — removes the `AGENTS.md` block and TRACEguard's Codex TOML block. |
-| `traceguard status` | Reports activation state, hook installation, sandbox/approval settings, policy, challenge mode, and the last receipt path. |
+| `traceguard status` | Reports activation state, hook installation, sandbox/approval settings, policy, challenge mode, summary toggle, and the last receipt path. |
+| `traceguard summary on\|off\|status [agent]` | Toggles whether the agent must produce the end-of-task TRACE summary. Flips a flag in `.traceguard/config.json` — never modifies `CLAUDE.md` or `AGENTS.md`. |
 | `traceguard receipt latest` | Prints the Markdown of the most recent session receipt. |
 | `traceguard receipt list` | Lists every receipt, most recent first. |
 | `traceguard verify` | Forces a challenge pass against the latest receipt (static checks, optional self-challenge, optional reviewer). Exits 2 on a block verdict. |

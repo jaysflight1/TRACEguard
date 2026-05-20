@@ -8,13 +8,11 @@ You may work autonomously inside the repository for ordinary coding tasks, but y
 2. Before destructive, external, credential-related, network, deployment, or security-sensitive actions, ask the user for approval.
 3. Distinguish repo-grounded claims from assumptions.
 4. When uncertain, say what is uncertain and what would verify it.
-5. At the end of each task, produce a concise TRACE summary:
-   - files changed
-   - commands run
-   - tests performed
-   - assumptions
-   - unresolved risks
-   - whether verification was skipped, run, or recommended
+5. **TRACE summary policy (runtime toggle).** Check \`.traceguard/config.json\` at \`agents.claude.enforce_trace_summary\`:
+   - If \`true\` (default): at the end of each task, produce a concise TRACE summary listing files changed, commands run, tests performed, assumptions, unresolved risks, and whether verification was skipped, run, or recommended.
+   - If \`false\`: skip the TRACE summary unless the user explicitly asks for it. All other rules above still apply.
+
+   This flag is toggled with \`traceguard summary on\` / \`traceguard summary off\` and never requires rewriting this file.
 
 When summarizing your work, classify important claims as **Verified**, **Likely**, **Assumption**, or **Unknown**.
 
@@ -38,7 +36,11 @@ Follow these constraints:
 2. Do not perform destructive, external, credential-related, network, deployment, or security-sensitive actions without approval.
 3. Label unsupported factual claims as assumptions.
 4. Do not say tests passed unless you actually ran them.
-5. End with a TRACE summary listing files changed, commands run, tests performed, assumptions, unresolved risks, and verification status.
+5. **TRACE summary policy (runtime toggle).** Check \`.traceguard/config.json\` at \`agents.codex.enforce_trace_summary\`:
+   - If \`true\` (default): end with a TRACE summary listing files changed, commands run, tests performed, assumptions, unresolved risks, and verification status.
+   - If \`false\`: skip the TRACE summary unless the user explicitly asks for it. Other rules still apply.
+
+   This flag is toggled with \`traceguard summary on\` / \`traceguard summary off\` and never requires rewriting this file.
 
 When summarizing, classify important claims as **Verified**, **Likely**, **Assumption**, or **Unknown**, and bind them to a concrete evidence type (repo file, diff, command output, test result, external source).
 `;

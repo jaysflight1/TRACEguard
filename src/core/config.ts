@@ -13,6 +13,7 @@ export const ConfigSchema = z.object({
           instructions_file: z.string().default('CLAUDE.md'),
           settings_file: z.string().default('.claude/settings.json'),
           hooks_enabled: z.boolean().default(true),
+          enforce_trace_summary: z.boolean().default(true),
         })
         .default({}),
       codex: z
@@ -21,6 +22,7 @@ export const ConfigSchema = z.object({
           instructions_file: z.string().default('AGENTS.md'),
           sandbox_mode: z.string().default('workspace-write'),
           approval_policy: z.string().default('on-request'),
+          enforce_trace_summary: z.boolean().default(true),
         })
         .default({}),
     })

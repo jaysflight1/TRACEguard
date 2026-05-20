@@ -57,10 +57,13 @@ export function runStatus(): void {
     style: { head: ['cyan'], border: ['gray'] },
     colWidths: [22, 50],
   });
+  const summaryClaude = config.agents.claude.enforce_trace_summary ? 'on' : 'off';
+  const summaryCodex = config.agents.codex.enforce_trace_summary ? 'on' : 'off';
   policy.push(
     ['Policy', config.policy],
     ['Challenge mode', config.challenge.default_mode],
     ['Reviewer mode', config.challenge.reviewer_mode ? 'on' : 'off'],
+    ['TRACE summary', `claude: ${summaryClaude}   codex: ${summaryCodex}`],
     ['Last receipt', latest ?? dim('(none yet)')],
   );
   console.log(policy.toString());

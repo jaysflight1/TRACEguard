@@ -10,8 +10,8 @@
 
 AI coding agents are increasingly trusted to run shell commands, edit files, and push code. But today's terminal agents:
 
-- treat `rm -rf` and `npm test` the same way — both just "tool use",
-- claim work is "done" or "tested" without evidence,
+- treat `rm -rf` and `npm test` as just tool use,
+- claim work is done or tested without evidence,
 - produce long natural-language explanations that look thorough but aren't grounded in what actually happened.
 
 There's no built-in record of **what the agent did, why, and what evidence supports its claims**. Auditors, teammates, and even the user have to take the agent's word for it.
@@ -28,7 +28,7 @@ A terminal-native protocol + CLI that adds five interventions around any agent s
 | **C** | Challenge Pass | `traceguard verify` runs deterministic static checks (secret scan over the diff, risky-path detection, lint/typecheck rerun, threshold breaches) and exits non-zero on a block verdict. |
 | **E** | Evidence Binding | Receipt claims must bind to one of: `repo_file`, `diff`, `command_output`, `test_result`, `external_source`, or be marked `assumption`. |
 
-The novel contribution isn't any single intervention — it's the **integration** of all five into a portable terminal protocol with minimal token cost, no model retraining, and full reversibility.
+The novel contribution is the **integration** of all five interventions into a portable terminal protocol with minimal token cost, no model retraining, and full reversibility.
 
 ## Quick start
 

@@ -11,10 +11,9 @@
     "bin",
     "dist",
     "scripts",
+    "docs",
     "README.md",
-    "COMMANDS.md",
-    "LICENSE",
-    "TRACEguard_protocol.md"
+    "LICENSE"
   ],
   "repository": {
     "type": "git",

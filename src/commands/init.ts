@@ -80,5 +80,5 @@ export function runInit(opts: InitOptions = {}): void {
   console.log();
   console.log(dim('If TRACEguard is installed globally (`npm install -g traceguard`),'));
   console.log(dim('you can drop the `npx` prefix and just run `traceguard` or `tg`.'));
-  console.log(dim('See `npx traceguard --help` or COMMANDS.md for the full reference.'));
+  console.log(dim('See `npx traceguard --help` or docs/COMMANDS.md for the full reference.'));
 }

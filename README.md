@@ -4,7 +4,9 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A520-brightgreen.svg)](./package.json)
 
-> **A lightweight transparency layer for AI coding agents.** TRACEguard makes Claude Code and Codex CLI sessions auditable: it intercepts risky actions before they run, records what the agent did with evidence, and lets you verify the result — without retraining anything or replacing the agent.
+> **A research-backed auditability layer for AI coding agents.** TRACEguard makes Claude Code and Codex CLI sessions auditable by intercepting risky actions, recording evidence-backed agent activity, and helping users verify results without retraining the model or replacing the agent.
+
+The design is informed by research on AI auditability, hallucination reduction, uncertainty signaling, and agent accountability. A supporting research brief is available in [`docs/TRACEguard-research-brief.pdf`](docs/TRACEguard-research-brief.pdf).
 
 ## The problem
 
@@ -71,9 +73,10 @@ Every file edit TRACEguard makes is wrapped in HTML-comment sentinels, so `unins
 
 ## Further reading
 
-- [`COMMANDS.md`](./COMMANDS.md) — full per-command reference with options, file effects, and exit codes
-- [`TRACEguard_protocol.md`](./TRACEguard_protocol.md) — the protocol design, risk-level boundaries, receipt schema, and challenge-pass modes
-- [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) — phase-by-phase build that produced the current tree
+- [`docs/COMMANDS.md`](./docs/COMMANDS.md) — full per-command reference with options, file effects, and exit codes
+- [`docs/TRACEguard_protocol.md`](./docs/TRACEguard_protocol.md) — the protocol design, risk-level boundaries, receipt schema, and challenge-pass modes
+- [`docs/IMPLEMENTATION_PLAN.md`](./docs/IMPLEMENTATION_PLAN.md) — phase-by-phase build that produced the current tree
+- [`docs/TRACEguard-research-brief.pdf`](./docs/TRACEguard-research-brief.pdf) — research brief
 
 ---
 
@@ -97,7 +100,7 @@ Every file edit TRACEguard makes is wrapped in HTML-comment sentinels, so `unins
 | `traceguard uninstall` | Calls both `off` flows. Pass `--purge` to also delete `.traceguard/`. |
 | `traceguard --help` / `--version` | Standard commander help and version output. Works on any subcommand too. |
 
-For each command's exact behavior, options, file effects, and exit codes, see [`COMMANDS.md`](./COMMANDS.md).
+For each command's exact behavior, options, file effects, and exit codes, see [`docs/COMMANDS.md`](./docs/COMMANDS.md).
 
 ---
 
@@ -128,4 +131,4 @@ npm test
 node bin/traceguard.js --help
 ```
 
-This package targets Node 20+. See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for the phase-by-phase build that produced the current tree.
+This package targets Node 20+. See [`docs/IMPLEMENTATION_PLAN.md`](./docs/IMPLEMENTATION_PLAN.md) for the phase-by-phase build that produced the current tree.

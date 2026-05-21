@@ -4,9 +4,9 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A520-brightgreen.svg)](./package.json)
 
-> **A research-backed auditability layer for AI coding agents.** TRACEguard makes Claude Code and Codex CLI sessions auditable by intercepting risky actions, recording evidence-backed agent activity, and helping users verify results without retraining the model or replacing the agent.
+**A research-backed auditability layer for AI coding agents.** TRACEguard makes Claude Code and Codex CLI sessions auditable by intercepting risky actions, recording evidence-backed agent activity, and helping users verify results without retraining the model or replacing the agent.
 
-The design is informed by research on AI auditability, hallucination reduction, uncertainty signaling, and agent accountability. A supporting research brief is available in [`docs/TRACEguard-research-brief.pdf`](docs/TRACEguard-research-brief.pdf).
+TRACEguard is informed by research on AI auditability, hallucination reduction, uncertainty signaling, and agent accountability. A supporting research brief is available in [`docs/TRACEguard-research-brief.pdf`](docs/TRACEguard-research-brief.pdf).
 
 ## The problem
 

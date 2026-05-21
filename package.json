@@ -10,9 +10,21 @@
   "files": [
     "bin",
     "dist",
+    "scripts",
     "README.md",
+    "COMMANDS.md",
+    "LICENSE",
     "TRACEguard_protocol.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaysflight1/traceguard.git"
+  },
+  "homepage": "https://github.com/jaysflight1/traceguard#readme",
+  "bugs": {
+    "url": "https://github.com/jaysflight1/traceguard/issues"
+  },
+  "author": "TRACEguard contributors",
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/cli.ts",
@@ -30,7 +42,6 @@
     "governance",
     "cli"
   ],
-  "author": "",
   "license": "MIT",
   "engines": {
     "node": ">=20"

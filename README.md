@@ -28,7 +28,7 @@ A terminal-native protocol + CLI that adds five interventions around any agent s
 | **C** | Challenge Pass | `traceguard verify` runs deterministic static checks (secret scan over the diff, risky-path detection, lint/typecheck rerun, threshold breaches) and exits non-zero on a block verdict. |
 | **E** | Evidence Binding | Receipt claims must bind to one of: `repo_file`, `diff`, `command_output`, `test_result`, `external_source`, or be marked `assumption`. |
 
-The novel contribution is the **integration** of all five interventions into a portable terminal protocol with minimal token cost, no model retraining, and full reversibility.
+TRACEguard integrates all five interventions into a portable terminal protocol with minimal token cost, no model retraining, and full reversibility.
 
 ## Quick start
 
